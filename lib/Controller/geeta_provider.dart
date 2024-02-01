@@ -47,14 +47,16 @@ class GeetaProvider extends ChangeNotifier {
     allChapters = allChapterFromJson(fileData);
   }
 
-  Future<void> loadJsonChapter1(String Url) async {
+  Future<List<ChapterOne>> loadJsonChapter1(String Url) async {
     var fileData = await rootBundle.loadString(Url);
-    if (Url == "lib/utils/json/chapter_1.json") {
-      jsonDecode(fileData);
-      chapterOne = chapterOneFromJson(fileData);
-    } else if (Url == "lib/utils/json/chapter_2.json") {
-      jsonDecode(fileData);
-      chapterTwo = chapterTwoFromJson(fileData);
-    }
+    jsonDecode(fileData);
+    chapterOne = chapterOneFromJson(fileData);
+    return chapterOne;
+  }
+  Future<List<ChapterTwo>> loadJsonChapter2(String Url) async {
+    var fileData = await rootBundle.loadString(Url);
+    jsonDecode(fileData);
+    chapterTwo = chapterTwoFromJson(fileData);
+    return chapterTwo;
   }
 }

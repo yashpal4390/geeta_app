@@ -88,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             chapter_summary: sample.chapterSummary,
                             json_path: sample.jsonPath,
                             name: sample.name,
+                            verses: sample.verses,
                             img_path: sample.imageName);
                       },
                     ));
@@ -106,3 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+//1 6
+//2 7
+//3 8
+//4 9
+//5 10
+//1 11
+//2 12

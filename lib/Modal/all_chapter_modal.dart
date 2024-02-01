@@ -19,6 +19,7 @@ class AllChapter {
   String? nameTranslation;
   int? versesCount;
   String? jsonPath;
+  List<Verse>? verses;
 
   AllChapter({
     this.chapterNumber,
@@ -31,6 +32,7 @@ class AllChapter {
     this.nameTranslation,
     this.versesCount,
     this.jsonPath,
+    this.verses,
   });
 
   factory AllChapter.fromJson(Map<String, dynamic> json) => AllChapter(
@@ -44,6 +46,7 @@ class AllChapter {
     nameTranslation: json["name_translation"],
     versesCount: json["verses_count"],
     jsonPath: json["json_path"],
+    verses: json["verses"] == null ? [] : List<Verse>.from(json["verses"]!.map((x) => Verse.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,5 +60,38 @@ class AllChapter {
     "name_translation": nameTranslation,
     "verses_count": versesCount,
     "json_path": jsonPath,
+    "verses": verses == null ? [] : List<dynamic>.from(verses!.map((x) => x.toJson())),
+  };
+}
+
+class Verse {
+  String? verse;
+  String? san;
+  String? en;
+  String? guj;
+  String? hi;
+
+  Verse({
+    this.verse,
+    this.san,
+    this.en,
+    this.guj,
+    this.hi,
+  });
+
+  factory Verse.fromJson(Map<String, dynamic> json) => Verse(
+    verse: json["verse"],
+    san: json["san"],
+    en: json["en"],
+    guj: json["guj"],
+    hi: json["hi"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "verse": verse,
+    "san": san,
+    "en": en,
+    "guj": guj,
+    "hi": hi,
   };
 }
