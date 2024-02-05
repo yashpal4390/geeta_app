@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:geeta_app/View/shlok_detail.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -32,25 +33,9 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   @override
-  void initState() {
-    // var gp = Provider.of<GeetaProvider>(context, listen: false);
-    // String jsonPath = widget.json_path ?? "";
-    // if (jsonPath == "lib/utils/json/chapter_1.json") {
-    //   gp.loadJsonChapter1(jsonPath);
-    // }
-    if (widget.verses == null) {
-      print("NULL");
-    } else {
-      print("${widget.verses!.length}");
-    }
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // String img = widget.img_path ?? "";
-    // String path = "assets/image/$img.jpg";
-    var gp = Provider.of<GeetaProvider>(context, listen: false);
+    String? path = widget.img_path ?? "";
+    String? finalPath = 'assets/image/${path ?? ""}.jpg'.trim();
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -87,8 +72,7 @@ class _DetailPageState extends State<DetailPage> {
             builder:
                 (BuildContext context, GeetaProvider value, Widget? child) {
               return Container(
-                margin:
-                    EdgeInsetsDirectional.only(top: 8, end: 20, start: 20),
+                margin: EdgeInsetsDirectional.only(top: 8, end: 20, start: 20),
                 child: Text(
                   "${widget.chapter_summary}",
                   maxLines: (value.showMore == true) ? null : 4,
@@ -102,6 +86,7 @@ class _DetailPageState extends State<DetailPage> {
             children: [
               GestureDetector(
                 onTap: () {
+                  var gp = Provider.of<GeetaProvider>(context, listen: false);
                   if (gp.showMore == false) {
                     gp.sMore();
                   } else {
@@ -114,7 +99,7 @@ class _DetailPageState extends State<DetailPage> {
                     return Container(
                       margin: EdgeInsetsDirectional.only(
                           top: 8, end: 20, start: 20),
-                      child: (gp.showMore == false)
+                      child: (value.showMore == false)
                           ? Text("SHOW MORE",
                               style: TextStyle(color: Colors.grey))
                           : Text("SHOW LESS",
@@ -129,8 +114,9 @@ class _DetailPageState extends State<DetailPage> {
           ToggleSwitch(
             minWidth: 90.0,
             cornerRadius: 20,
-            labels: ['English', 'Gujrati', 'Sanskrit','Hindi'],
+            labels: ['English', 'Gujarati', 'Sanskrit', 'Hindi'],
             onToggle: (val) {
+              var gp = Provider.of<GeetaProvider>(context, listen: false);
               gp.setToogleIndex(val);
             },
           ),
@@ -151,14 +137,20 @@ class _DetailPageState extends State<DetailPage> {
                     } else if (value.toggleIndex == 2) {
                       title = sample.san ?? "";
                       v = "श्लोकः";
-                    }
-                    else if (value.toggleIndex == 3) {
+                    } else if (value.toggleIndex == 3) {
                       title = sample.hi ?? "";
                       v = "श्लोक";
                     }
                     return Column(
                       children: [
                         ListTile(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return ShlokDetail(verse: title,img: finalPath,);
+                                },
+                              ));
+                            },
                             title: Row(
                               children: [
                                 Icon(Icons.menu_book),
