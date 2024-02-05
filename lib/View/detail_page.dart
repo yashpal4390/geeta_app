@@ -147,7 +147,13 @@ class _DetailPageState extends State<DetailPage> {
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return ShlokDetail(verse: title,img: finalPath,);
+                                  return ShlokDetail(
+                                    guj: sample.guj ?? "",
+                                    eng: sample.en ?? "",
+                                    hindi: sample.hi,
+                                    san: sample.san ?? "",
+                                    img: finalPath,
+                                  );
                                 },
                               ));
                             },
